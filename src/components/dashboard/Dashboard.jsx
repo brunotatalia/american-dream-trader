@@ -8,7 +8,9 @@ import { useEra } from '@/hooks/useEra'
 import { useGameState } from '@/hooks/useGameState'
 import { useMarket } from '@/hooks/useMarket'
 import { usePlayer } from '@/hooks/usePlayer'
+import { useAchievementStore } from '@/stores/achievementStore'
 import { usePortfolioStore } from '@/stores/portfolioStore'
+import { useRealEstateStore } from '@/stores/realEstateStore'
 import { formatCurrency } from '@/utils/formatters'
 import { simulatePortfolioValue } from '@/utils/marketSimulator'
 
@@ -19,10 +21,13 @@ export default function Dashboard() {
   const { formattedDate, daysPassed } = useGameState()
   const { eraData } = useEra()
   const portfolio = usePortfolioStore((state) => state.positions)
+  const realEstate = useRealEstateStore((state) => state.ownedProperties)
+  const achievements = useAchievementStore((state) => state.unlockedAchievements)
 
   const portfolioValue = simulatePortfolioValue(portfolio)
+  const realEstateValue = Object.values(realEstate).reduce((sum, prop) => sum + (prop.currentValue || prop.price), 0)
 
-  const totalNetWorth = cash + savings + portfolioValue
+  const totalNetWorth = cash + savings + portfolioValue + realEstateValue
 
   return (
     <div className="grid gap-6">
@@ -124,20 +129,54 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="flex items-center justify-between rounded-lg border border-white/5 bg-background-tertiary/40 px-4 py-3">
-              <span className="text-sm text-text-secondary">Cash</span>
+              <span className="text-sm text-text-secondary">💵 Cash</span>
               <span className="font-semibold text-text-primary">{formatCurrency(cash)}</span>
             </div>
             <div className="flex items-center justify-between rounded-lg border border-white/5 bg-background-tertiary/40 px-4 py-3">
-              <span className="text-sm text-text-secondary">Savings</span>
+              <span className="text-sm text-text-secondary">🏦 Savings</span>
               <span className="font-semibold text-text-primary">{formatCurrency(savings)}</span>
             </div>
             <div className="flex items-center justify-between rounded-lg border border-white/5 bg-background-tertiary/40 px-4 py-3">
-              <span className="text-sm text-text-secondary">Stocks & Commodities</span>
+              <span className="text-sm text-text-secondary">📈 Stocks & Commodities</span>
               <span className="font-semibold text-text-primary">{formatCurrency(portfolioValue)}</span>
             </div>
+            <div className="flex items-center justify-between rounded-lg border border-white/5 bg-background-tertiary/40 px-4 py-3">
+              <span className="text-sm text-text-secondary">🏠 Real Estate</span>
+              <span className="font-semibold text-text-primary">{formatCurrency(realEstateValue)}</span>
+            </div>
             <div className="flex items-center justify-between rounded-lg border border-accent-primary/20 bg-accent-primary/10 px-4 py-3">
-              <span className="text-sm font-semibold text-accent-primary">Total Net Worth</span>
+              <span className="text-sm font-semibold text-accent-primary">💰 Total Net Worth</span>
               <span className="font-display text-xl text-accent-primary">{formatCurrency(totalNetWorth)}</span>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Player Statistics</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-center justify-between rounded-lg border border-white/5 bg-background-tertiary/40 px-4 py-3">
+              <span className="text-sm text-text-secondary">⏰ Days Survived</span>
+              <span className="font-semibold text-text-primary">{daysPassed} days</span>
+            </div>
+            <div className="flex items-center justify-between rounded-lg border border-white/5 bg-background-tertiary/40 px-4 py-3">
+              <span className="text-sm text-text-secondary">📊 Stock Positions</span>
+              <span className="font-semibold text-text-primary">{Object.keys(portfolio).length}</span>
+            </div>
+            <div className="flex items-center justify-between rounded-lg border border-white/5 bg-background-tertiary/40 px-4 py-3">
+              <span className="text-sm text-text-secondary">🏘️ Properties Owned</span>
+              <span className="font-semibold text-text-primary">{Object.keys(realEstate).length}</span>
+            </div>
+            <div className="flex items-center justify-between rounded-lg border border-white/5 bg-background-tertiary/40 px-4 py-3">
+              <span className="text-sm text-text-secondary">🏆 Achievements</span>
+              <span className="font-semibold text-text-primary">{Object.keys(achievements).length}</span>
+            </div>
+            <div className="flex items-center justify-between rounded-lg border border-accent-success/20 bg-accent-success/10 px-4 py-3">
+              <span className="text-sm font-semibold text-accent-success">📈 Daily Change</span>
+              <span className={`font-semibold ${dailyBalanceDelta >= 0 ? 'text-accent-success' : 'text-accent-danger'}`}>
+                {dailyBalanceDelta >= 0 ? '+' : ''}{formatCurrency(dailyBalanceDelta)}
+              </span>
             </div>
           </CardContent>
         </Card>

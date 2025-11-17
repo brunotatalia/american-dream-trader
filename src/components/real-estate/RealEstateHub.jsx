@@ -112,6 +112,22 @@ export default function RealEstateHub() {
       >
         {selectedProperty && (
           <div className="space-y-4">
+            {/* Available Cash Display */}
+            <div className="rounded-lg border-2 border-accent-success/30 bg-accent-success/10 p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs uppercase tracking-wider text-accent-success">Available Cash</p>
+                  <p className="mt-1 font-display text-2xl font-bold text-accent-success">
+                    {formatCurrency(player.cash)}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-xs text-text-tertiary">Buying Power</p>
+                  <p className="text-sm text-text-secondary">Ready to invest</p>
+                </div>
+              </div>
+            </div>
+
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
                 <p className="text-text-tertiary">Location</p>
@@ -145,13 +161,27 @@ export default function RealEstateHub() {
               <p className="text-sm text-text-secondary">{selectedProperty.description}</p>
             </div>
 
-            <div className="rounded-lg border border-accent-success/20 bg-accent-success/10 p-4">
-              <p className="text-sm font-semibold text-accent-success">Cash Required</p>
-              <p className="mt-1 font-display text-2xl text-accent-success">
-                {formatCurrency(selectedProperty.price * selectedProperty.downPayment)}
-              </p>
+            <div className="rounded-lg border border-white/5 bg-background-tertiary/40 p-4">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-text-tertiary">Cash Required</span>
+                <span className="font-display text-lg text-text-primary">
+                  {formatCurrency(selectedProperty.price * selectedProperty.downPayment)}
+                </span>
+              </div>
+              <div className="mt-2 pt-2 border-t border-white/5">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-text-tertiary">After Purchase</span>
+                  <span className={`font-semibold ${
+                    player.cash - (selectedProperty.price * selectedProperty.downPayment) >= 0
+                      ? 'text-accent-success'
+                      : 'text-accent-danger'
+                  }`}>
+                    {formatCurrency(player.cash - (selectedProperty.price * selectedProperty.downPayment))}
+                  </span>
+                </div>
+              </div>
               <p className="mt-2 text-xs text-text-tertiary">
-                Your current cash: {formatCurrency(player.cash)}
+                Monthly mortgage payment: {formatCurrency((selectedProperty.price - (selectedProperty.price * selectedProperty.downPayment)) * 0.06 / 12)}
               </p>
             </div>
           </div>
