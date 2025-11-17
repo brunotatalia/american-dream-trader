@@ -1,0 +1,66 @@
+const historicalPeriods = [
+  {
+    id: 'ROARING_TWENTIES',
+    name: 'The Roaring Twenties',
+    description:
+      'Post-war boom years defined by jazz, speakeasies, new technology, and an overheated stock market leading to the 1929 crash.',
+    startYear: 1920,
+    endYear: 1929,
+    startingCapital: 750,
+    marketVolatilityModifier: 1.4,
+    unemploymentRate: 0.045,
+    inflationRate: 0.018,
+    interestRate: 0.05,
+    wageInflation: 0.03,
+    keyThemes: [
+      'Mass production and consumer credit expansion',
+      'Rapid urbanization and real estate speculation',
+      'Bootlegging economy under Prohibition',
+      'Radio, automobiles, and appliances fueling demand',
+    ],
+    headlineEvents: [
+      { year: 1920, name: 'Volstead Act Enforcement', impact: 'Speakeasy opportunities rise' },
+      { year: 1925, name: 'Florida Land Boom Peaks', impact: 'Property values surge then collapse' },
+      { year: 1927, name: 'First Talking Pictures', impact: 'Entertainment sector stocks rally' },
+      { year: 1929, name: 'Black Thursday', impact: 'Historic market crash and credit squeeze' },
+    ],
+  },
+  {
+    id: 'GREAT_DEPRESSION',
+    name: 'The Great Depression',
+    description: 'Scarcity, deflation, and resilience in the 1930s economy.',
+    startYear: 1930,
+    endYear: 1939,
+    startingCapital: 300,
+    marketVolatilityModifier: 0.7,
+    unemploymentRate: 0.18,
+    inflationRate: -0.01,
+    interestRate: 0.025,
+    wageInflation: -0.02,
+    keyThemes: ['New Deal programs', 'Dust Bowl impact', 'Bank failures'],
+    headlineEvents: [
+      { year: 1933, name: 'Banking Act & FDIC', impact: 'Restores trust in savings' },
+      { year: 1935, name: 'Works Progress Administration', impact: 'Job programs expand' },
+    ],
+  },
+  {
+    id: 'MODERN_ERA',
+    name: 'Modern Era',
+    description: 'Technology-driven growth and diversified investment vehicles.',
+    startYear: 2010,
+    endYear: 2020,
+    startingCapital: 5000,
+    marketVolatilityModifier: 1.1,
+    unemploymentRate: 0.055,
+    inflationRate: 0.02,
+    interestRate: 0.03,
+    wageInflation: 0.025,
+    keyThemes: ['Mobile & cloud computing', 'Low interest rates', 'Gig economy'],
+    headlineEvents: [
+      { year: 2012, name: 'Smartphone Saturation', impact: 'Tech stocks dominate' },
+      { year: 2016, name: 'Low Mortgage Rates', impact: 'Housing prices climb steadily' },
+    ],
+  },
+]
+
+export default historicalPeriods

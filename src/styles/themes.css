@@ -1,0 +1,29 @@
+:root {
+  --adt-background-primary: #0a0e1a;
+  --adt-background-secondary: #111827;
+  --adt-background-tertiary: #1f2937;
+  --adt-background-elevated: #374151;
+
+  --adt-text-primary: #f9fafb;
+  --adt-text-secondary: #d1d5db;
+  --adt-text-tertiary: #9ca3af;
+  --adt-text-disabled: #6b7280;
+
+  --adt-accent-primary: #3b82f6;
+  --adt-accent-success: #10b981;
+  --adt-accent-danger: #ef4444;
+  --adt-accent-warning: #f59e0b;
+  --adt-accent-info: #6366f1;
+}
+
+[data-theme='light'] {
+  --adt-background-primary: #f9fafb;
+  --adt-background-secondary: #f3f4f6;
+  --adt-background-tertiary: #e5e7eb;
+  --adt-background-elevated: #d1d5db;
+
+  --adt-text-primary: #0a0e1a;
+  --adt-text-secondary: #1f2937;
+  --adt-text-tertiary: #4b5563;
+  --adt-text-disabled: #9ca3af;
+}
