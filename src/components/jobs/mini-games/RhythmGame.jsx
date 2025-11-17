@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import Button from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 
 // Keys for the rhythm game
@@ -36,6 +35,7 @@ export default function RhythmGame({ onComplete, basePay = 36 }) {
   // Initialize first pattern
   useEffect(() => {
     startNewPattern()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Timer countdown
@@ -50,6 +50,7 @@ export default function RhythmGame({ onComplete, basePay = 36 }) {
     }, 1000)
 
     return () => clearInterval(timer)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft, isGameActive])
 
   // Keyboard listener
@@ -65,6 +66,7 @@ export default function RhythmGame({ onComplete, basePay = 36 }) {
 
     window.addEventListener('keypress', handleKeyPress)
     return () => window.removeEventListener('keypress', handleKeyPress)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isGameActive, isShowingPattern, currentIndex, pattern])
 
   const startNewPattern = () => {

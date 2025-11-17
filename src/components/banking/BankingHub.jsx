@@ -1,18 +1,17 @@
+import { CreditCard, DollarSign, PiggyBank, TrendingUp } from 'lucide-react'
 import { useState } from 'react'
-import { DollarSign, TrendingUp, CreditCard, PiggyBank } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import Modal from '@/components/ui/Modal'
 import Tabs from '@/components/ui/Tabs'
 import { usePlayer } from '@/hooks/usePlayer'
-import { usePlayerStore } from '@/stores/playerStore'
 import { useNotificationStore } from '@/stores/notificationStore'
-import { formatCurrency, formatPercent } from '@/utils/formatters'
+import { usePlayerStore } from '@/stores/playerStore'
+import { formatCurrency } from '@/utils/formatters'
 
 import InterestCalculator from './InterestCalculator'
 import LoanApplication from './LoanApplication'
-import LoanManagement from './LoanManagement'
 import SavingsAccount from './SavingsAccount'
 
 export default function BankingHub() {
@@ -148,7 +147,6 @@ export default function BankingHub() {
           <div className="mt-6">
             {activeTab === 'savings' && (
               <SavingsAccount
-                cash={cash}
                 savings={savings}
                 onDeposit={() => setShowDepositModal(true)}
                 onWithdraw={() => setShowWithdrawModal(true)}

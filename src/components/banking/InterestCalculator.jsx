@@ -1,4 +1,5 @@
 import { useState } from 'react'
+
 import { formatCurrency, formatPercent } from '@/utils/formatters'
 
 export default function InterestCalculator() {

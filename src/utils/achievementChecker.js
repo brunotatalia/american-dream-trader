@@ -38,7 +38,7 @@ export function checkAchievements(stats, currentGameState = {}) {
 /**
  * Check if a single requirement is met
  */
-function checkRequirement(requirement, stats, gameState) {
+function checkRequirement(requirement, stats) {
   const { type, value, days } = requirement
 
   switch (type) {
@@ -101,9 +101,10 @@ function checkRequirement(requirement, stats, gameState) {
       return stats.startingNetWorth <= 100 && stats.maxNetWorth >= value
     case 'speedRun':
       return stats.netWorthAt30Days >= value && stats.daysSurvived >= days
-    case 'allAchievements':
+    case 'allAchievements': {
       const unlockedCount = useAchievementStore.getState().getUnlockedCount()
       return unlockedCount >= achievementsDatabase.length - 1 // Minus the completionist itself
+    }
 
     default:
       console.warn(`Unknown achievement requirement type: ${type}`)

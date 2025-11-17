@@ -48,6 +48,7 @@ export default function WordScrambleGame({ onComplete, basePay = 45 }) {
     }, 1000)
 
     return () => clearInterval(timer)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft, isGameActive])
 
   const generateNewWord = () => {

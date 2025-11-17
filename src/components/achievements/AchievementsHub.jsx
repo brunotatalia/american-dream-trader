@@ -1,12 +1,12 @@
-import { useState } from 'react'
 import { Trophy, Lock } from 'lucide-react'
+import { useState } from 'react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import Tabs from '@/components/ui/Tabs'
 import achievementsDatabase, { achievementCategories } from '@/data/achievementsDatabase'
 import { useAchievementStore } from '@/stores/achievementStore'
-import { formatCurrency } from '@/utils/formatters'
 import { getAchievementProgress } from '@/utils/achievementChecker'
+import { formatCurrency } from '@/utils/formatters'
 
 export default function AchievementsHub() {
   const unlockedAchievements = useAchievementStore((state) => state.unlockedAchievements)

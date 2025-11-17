@@ -1,7 +1,7 @@
 import Button from '@/components/ui/Button'
 import { formatCurrency, formatPercent } from '@/utils/formatters'
 
-export default function SavingsAccount({ cash, savings, onDeposit, onWithdraw }) {
+export default function SavingsAccount({ savings, onDeposit, onWithdraw }) {
   const savingsRate = 0.035 // 3.5% APY in 1920s
   const monthlyInterest = savings * (savingsRate / 12)
   const projectedYearlyInterest = savings * savingsRate

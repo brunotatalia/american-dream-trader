@@ -1,8 +1,9 @@
 import { useState } from 'react'
+
 import Button from '@/components/ui/Button'
 import { usePlayer } from '@/hooks/usePlayer'
-import { usePlayerStore } from '@/stores/playerStore'
 import { useNotificationStore } from '@/stores/notificationStore'
+import { usePlayerStore } from '@/stores/playerStore'
 import { formatCurrency, formatPercent } from '@/utils/formatters'
 
 export default function LoanApplication() {
