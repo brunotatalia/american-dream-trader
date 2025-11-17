@@ -144,24 +144,24 @@ export default function Dashboard() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-            <p className="text-sm text-text-tertiary">Jump straight into core activities.</p>
+            <CardTitle>Investment Opportunities</CardTitle>
+            <p className="text-sm text-text-tertiary">Explore all ways to grow your wealth</p>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-3">
+            <div className="grid gap-3 sm:grid-cols-2">
               {QUICK_ACTIONS.map((action) => (
                 <button
                   key={action.id}
                   type="button"
                   onClick={() => navigate(action.path)}
-                  className="group flex items-center justify-between rounded-lg border border-white/5 bg-background-tertiary/60 px-4 py-3 text-left transition-colors hover:border-accent-primary/50 hover:text-text-primary"
+                  className="group flex items-center justify-between rounded-lg border border-white/5 bg-background-tertiary/60 px-4 py-3 text-left transition-all hover:border-accent-primary/50 hover:bg-accent-primary/5 hover:scale-[1.02] hover:shadow-lg"
                 >
-                  <div>
-                    <p className="font-semibold">{action.title}</p>
-                    <p className="text-sm text-text-tertiary">{action.description}</p>
+                  <div className="flex-1">
+                    <p className="font-semibold text-text-primary">{action.title}</p>
+                    <p className="text-xs text-text-tertiary mt-1">{action.description}</p>
                   </div>
-                  <span className="text-xs uppercase tracking-[0.2em] text-accent-primary transition-transform group-hover:translate-x-1 group-hover:font-semibold">
-                    {action.cta}
+                  <span className="ml-3 text-xl opacity-50 transition-all group-hover:translate-x-1 group-hover:opacity-100">
+                    →
                   </span>
                 </button>
               ))}
@@ -176,23 +176,44 @@ export default function Dashboard() {
 const QUICK_ACTIONS = [
   {
     id: 'open-jobs',
-    title: 'Find a Job',
+    title: '💼 Find a Job',
     description: 'Secure steady income with new opportunities.',
     cta: 'Explore Jobs',
     path: '/jobs',
   },
   {
     id: 'market-watch',
-    title: 'Review Market',
-    description: 'Track price movements and portfolio health.',
+    title: '📈 Trade Stocks',
+    description: 'Buy and sell stocks from 20+ companies.',
     cta: 'Open Trading',
     path: '/trading',
   },
   {
+    id: 'commodities',
+    title: '🌾 Trade Commodities',
+    description: 'Invest in gold, oil, wheat, and more.',
+    cta: 'View Commodities',
+    path: '/trading',
+  },
+  {
     id: 'property-scout',
-    title: 'Scout Properties',
-    description: 'Look for passive income through rentals.',
-    cta: 'Browse Homes',
+    title: '🏠 Buy Real Estate',
+    description: 'Build wealth through property ownership.',
+    cta: 'Browse Properties',
     path: '/real-estate',
+  },
+  {
+    id: 'banking',
+    title: '🏦 Banking Services',
+    description: 'Save money and earn 3.5% interest.',
+    cta: 'Open Account',
+    path: '/banking',
+  },
+  {
+    id: 'casino',
+    title: '🎰 Try Your Luck',
+    description: 'Casino games (high risk, high reward).',
+    cta: 'Enter Casino',
+    path: '/casino',
   },
 ]

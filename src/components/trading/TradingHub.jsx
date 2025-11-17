@@ -281,6 +281,22 @@ export default function TradingHub() {
       >
         {tradeModal.asset && (
           <div className="space-y-4">
+            {/* Available Cash Display */}
+            <div className="rounded-lg border-2 border-accent-primary/30 bg-accent-primary/10 p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs uppercase tracking-wider text-accent-primary">Available Cash</p>
+                  <p className="mt-1 font-display text-2xl font-bold text-accent-primary">
+                    {formatCurrency(cashAvailable)}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-xs text-text-tertiary">Buying Power</p>
+                  <p className="text-sm text-text-secondary">Ready to invest</p>
+                </div>
+              </div>
+            </div>
+
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
                 <p className="text-text-tertiary">Symbol</p>
@@ -328,6 +344,22 @@ export default function TradingHub() {
                 </span>
               </div>
               <p className="mt-2 text-xs text-text-tertiary">Includes $10 commission fee</p>
+              {tradeModal.action === 'buy' && (
+                <div className="mt-2 pt-2 border-t border-white/5">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-text-tertiary">After Purchase</span>
+                    <span className={`font-semibold ${
+                      cashAvailable - (quantity * (tradeModal.asset.currentPrice ?? tradeModal.asset.initialPrice ?? 0) + 10) >= 0
+                        ? 'text-accent-success'
+                        : 'text-accent-danger'
+                    }`}>
+                      {formatCurrency(
+                        cashAvailable - (quantity * (tradeModal.asset.currentPrice ?? tradeModal.asset.initialPrice ?? 0) + 10)
+                      )}
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}
