@@ -1,11 +1,15 @@
 import {
   Banknote,
   BarChart3,
+  BookOpen,
   BriefcaseBusiness,
+  Building2,
   Compass,
   Gamepad2,
+  Heart,
   LayoutDashboard,
   Trophy,
+  Users,
 } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 
@@ -15,7 +19,11 @@ const ICON_MAP = {
   dashboard: LayoutDashboard,
   trading: BarChart3,
   jobs: BriefcaseBusiness,
+  education: BookOpen,
+  business: Building2,
   'real-estate': Compass,
+  life: Heart,
+  network: Users,
   banking: Banknote,
   casino: Gamepad2,
   achievements: Trophy,
