@@ -17,28 +17,16 @@ export function useTime({ autoStart = false } = {}) {
   }, [autoStart, setPaused])
 
   useEffect(() => {
-    console.log('⏰ useTime effect:', { isPaused, timeSpeed })
-    
-    if (isPaused) {
-      console.log('⏸️ Time is paused')
-      return
-    }
+    if (isPaused) return
 
     const intervalDuration = getTimeSpeedInterval(timeSpeed, isPaused)
-    console.log('⏱️ Setting interval for', intervalDuration, 'ms')
-    
-    if (!intervalDuration) {
-      console.warn('⚠️ No interval duration, time won\'t advance')
-      return
-    }
+    if (!intervalDuration) return
 
     const interval = window.setInterval(() => {
-      console.log('⏩ Advancing day...')
       advanceDay()
     }, intervalDuration)
 
     return () => {
-      console.log('🛑 Clearing time interval')
       window.clearInterval(interval)
     }
   }, [advanceDay, isPaused, timeSpeed])

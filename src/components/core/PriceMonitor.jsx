@@ -30,29 +30,14 @@ export default function PriceMonitor() {
   }, [assetsList, availableProperties, updateTrigger])
   
   const handleForceUpdate = () => {
-    console.log('🔄 Manually advancing day...')
     advanceDay()
   }
-  
+
   const handleFixPrices = () => {
-    console.log('🔧 FIXING STUCK PRICES - Forcing price variation...')
-    
-    if (!assets || Object.keys(assets).length === 0) {
-      console.error('No assets to fix!')
-      return
-    }
-    
-    console.log(`Fixing ${Object.keys(assets).length} assets...`)
+    if (!assets || Object.keys(assets).length === 0) return
+
     const updatedAssets = updateMarketPrices(assets, eraData?.marketVolatilityModifier || 1.2)
-    
-    // Log changes
-    const sampleSymbol = Object.keys(updatedAssets)[0]
-    console.log(`Sample: ${sampleSymbol}`)
-    console.log(`  Before: $${assets[sampleSymbol]?.currentPrice.toFixed(2)} (${assets[sampleSymbol]?.priceChangePercent?.toFixed(2)}%)`)
-    console.log(`  After:  $${updatedAssets[sampleSymbol]?.currentPrice.toFixed(2)} (${updatedAssets[sampleSymbol]?.priceChangePercent?.toFixed(2)}%)`)
-    
     setAssets(updatedAssets)
-    console.log('✅ Prices fixed! Watch the Price Monitor update above.')
   }
 
   const sampleStocks = assetsList.slice(0, 3)

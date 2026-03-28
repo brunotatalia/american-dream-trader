@@ -15,7 +15,11 @@ export function useLife() {
   const lifeLog = useLifeStore((state) => state.lifeLog)
   const milestones = useLifeStore((state) => state.milestones)
 
-  const monthlyExpenses = useLifeStore((state) => state.getMonthlyExpenses)()
+  const monthlyExpenses = useMemo(
+    () => useLifeStore.getState().getMonthlyExpenses(),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [lifestyle],
+  )
 
   const lifeStage = useMemo(() => {
     if (reputation >= 80) return { label: 'Tycoon', color: 'text-yellow-400' }

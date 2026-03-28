@@ -50,11 +50,6 @@ export function simulatePrice(currentPrice, asset, eraVolatilityModifier = 1) {
   // Apply the change
   const newPrice = currentPrice * (1 + totalChange)
 
-  // Debug log for first few calls
-  if (Math.random() < 0.01) { // Log 1% of calls to avoid spam
-    console.log(`💹 Price sim: ${asset.symbol} $${currentPrice.toFixed(2)} → $${newPrice.toFixed(2)} (${(totalChange * 100).toFixed(3)}%)`)
-  }
-
   return Math.max(newPrice, 0.01)
 }
 

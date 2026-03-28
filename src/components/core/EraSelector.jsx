@@ -19,24 +19,18 @@ export default function EraSelector({ isOpen, onClose }) {
     const selectedEra = allEras.find((era) => era.id === selectedEraId)
     if (!selectedEra) return
 
-    console.log('🎮 Starting game with era:', selectedEra.name)
-
     // Set era
     setCurrentEra(selectedEraId)
 
     // Set starting date for era
     const startDate = new Date(`${selectedEra.startYear}-01-01T00:00:00.000Z`)
     setDate(startDate)
-    console.log('📅 Set date to:', startDate.toLocaleDateString())
 
     // Initialize player capital
     adjustCash(selectedEra.startingCapital, 'era_start')
-    console.log('💰 Set starting capital:', selectedEra.startingCapital)
 
     // Initialize market with era-appropriate assets
     const initialAssets = initializeMarket(selectedEraId)
-    console.log('📊 Initialized market with', Object.keys(initialAssets).length, 'assets')
-    console.log('Sample assets:', Object.entries(initialAssets).slice(0, 3).map(([sym, a]) => `${sym}: $${a.currentPrice}`))
     setAssets(initialAssets)
 
     onClose?.()

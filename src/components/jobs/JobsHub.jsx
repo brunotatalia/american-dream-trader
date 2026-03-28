@@ -46,14 +46,10 @@ export default function JobsHub() {
 
   const [isPlaying, setIsPlaying] = useState(false)
 
-  console.log('🎯 JobsHub render:', { totalJobs: jobs.length, eraData: eraData?.name, activeJob: activeJob?.id })
-
   // Filter jobs available in current era
   const availableJobs = eraData
     ? jobs.filter((job) => job.eraAvailability && job.eraAvailability.includes(eraData.id))
     : jobs
-
-  console.log('📋 Available jobs:', availableJobs.length, availableJobs.map(j => j.title))
 
   const tabs = availableJobs.map((job) => ({ id: job.id, label: job.title }))
 
