@@ -2,6 +2,7 @@ const eventsDatabase = [
   // Roaring Twenties timeline events
   {
     id: 'PROHIBITION_CRACKDOWN',
+    name: 'Prohibition Crackdown',
     date: '1920-01-17',
     type: 'policy',
     era: 'ROARING_TWENTIES',
@@ -15,6 +16,7 @@ const eventsDatabase = [
   },
   {
     id: 'FLORIDA_LAND_BOOM',
+    name: 'Florida Land Boom',
     date: '1925-03-01',
     type: 'real_estate_boom',
     era: 'ROARING_TWENTIES',
@@ -29,6 +31,7 @@ const eventsDatabase = [
   },
   {
     id: 'STOCK_POOL_SCANDAL',
+    name: 'Stock Pool Scandal',
     date: '1928-08-15',
     type: 'market_event',
     era: 'ROARING_TWENTIES',
@@ -42,6 +45,7 @@ const eventsDatabase = [
   },
   {
     id: 'RADIO_CRAZE',
+    name: 'Radio Craze',
     date: '1927-11-23',
     type: 'technology_boom',
     era: 'ROARING_TWENTIES',
@@ -55,6 +59,7 @@ const eventsDatabase = [
   },
   {
     id: 'BLACK_THURSDAY',
+    name: 'Black Thursday',
     date: '1929-10-24',
     type: 'market_crash',
     era: 'ROARING_TWENTIES',
@@ -69,6 +74,7 @@ const eventsDatabase = [
   },
   {
     id: 'BLACK_TUESDAY',
+    name: 'Black Tuesday',
     date: '1929-10-29',
     type: 'market_crash',
     era: 'ROARING_TWENTIES',
@@ -83,6 +89,7 @@ const eventsDatabase = [
   },
   {
     id: 'GI_BILL',
+    name: 'G.I. Bill Signed',
     date: '1944-06-22',
     type: 'policy',
     era: 'POST_WAR',

@@ -62,9 +62,10 @@ export function collectRent(ownedProperties) {
   let totalRent = 0
 
   Object.values(ownedProperties).forEach((property) => {
+    const rent = property.monthlyRent ?? 0
     // Random tenant payment (85% chance they pay on time)
-    if (Math.random() < 0.85) {
-      totalRent += property.monthlyRent
+    if (rent > 0 && Math.random() < 0.85) {
+      totalRent += rent
     }
   })
 
@@ -78,9 +79,13 @@ export function appreciateProperties(ownedProperties) {
   const updates = {}
 
   Object.entries(ownedProperties).forEach(([id, property]) => {
-    const appreciationRate = property.appreciation / 12 // Monthly
+    const appreciation = property.appreciation ?? 0.03
+    const currentValue = property.currentValue ?? property.price ?? 0
+    if (currentValue <= 0) return
+
+    const appreciationRate = appreciation / 12 // Monthly
     const randomFactor = 1 + (Math.random() - 0.5) * 0.02 // +/- 1%
-    const newValue = property.currentValue * (1 + appreciationRate * randomFactor)
+    const newValue = currentValue * (1 + appreciationRate * randomFactor)
 
     updates[id] = {
       ...property,

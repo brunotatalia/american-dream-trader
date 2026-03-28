@@ -9,7 +9,7 @@ export function checkHistoricalEvents(currentDateString) {
   const currentDate = new Date(currentDateString).toISOString().split('T')[0]
 
   return eventsDatabase.filter((event) => {
-    if (event.type !== 'historical') return false
+    if (!event.date) return false
     return event.date === currentDate
   })
 }
@@ -22,40 +22,46 @@ export function triggerRandomEvents() {
 
   // Market events (5% chance daily)
   if (Math.random() < 0.05) {
-    const marketEvents = eventsDatabase.filter((e) => e.type === 'market' && e.probability)
+    const marketEvents = eventsDatabase.filter((e) =>
+      ['market', 'market_event', 'market_crash', 'technology_boom'].includes(e.type) && !e.date
+    )
     if (marketEvents.length > 0) {
       const weightedEvents = marketEvents.map((e) => ({
         value: e,
-        weight: e.probability * 100,
+        weight: (e.probability ?? 0.1) * 100,
       }))
       const event = pickWeighted(weightedEvents)
-      events.push(event)
+      if (event) events.push(event)
     }
   }
 
-  // Personal events (2% chance daily)
+  // Economic/policy events (2% chance daily)
   if (Math.random() < 0.02) {
-    const personalEvents = eventsDatabase.filter((e) => e.type === 'personal' && e.probability)
-    if (personalEvents.length > 0) {
-      const weightedEvents = personalEvents.map((e) => ({
+    const policyEvents = eventsDatabase.filter((e) =>
+      ['personal', 'policy', 'real_estate_boom'].includes(e.type) && !e.date
+    )
+    if (policyEvents.length > 0) {
+      const weightedEvents = policyEvents.map((e) => ({
         value: e,
-        weight: e.probability * 100,
+        weight: (e.probability ?? 0.1) * 100,
       }))
       const event = pickWeighted(weightedEvents)
-      events.push(event)
+      if (event) events.push(event)
     }
   }
 
   // Opportunity events (1% chance daily)
   if (Math.random() < 0.01) {
-    const opportunityEvents = eventsDatabase.filter((e) => e.type === 'opportunity' && e.probability)
+    const opportunityEvents = eventsDatabase.filter((e) =>
+      ['opportunity'].includes(e.type) && !e.date
+    )
     if (opportunityEvents.length > 0) {
       const weightedEvents = opportunityEvents.map((e) => ({
         value: e,
-        weight: e.probability * 100,
+        weight: (e.probability ?? 0.1) * 100,
       }))
       const event = pickWeighted(weightedEvents)
-      events.push(event)
+      if (event) events.push(event)
     }
   }
 
@@ -67,12 +73,24 @@ export function triggerRandomEvents() {
  */
 export function applyEventImpact(event, { marketStore, playerStore, notificationStore }) {
   const { impact, description, name } = event
+  if (!impact) {
+    // Event with no impact - just notify
+    notificationStore.getState().addToast({
+      title: name ?? 'Event',
+      description: description ?? '',
+      variant: 'info',
+      duration: 6000,
+    })
+    return
+  }
+
+  const isNegative = (impact.stocks ?? 0) < 0 || impact.jobLoss
 
   // Notify player
   notificationStore.getState().addToast({
-    title: name,
-    description,
-    variant: impact.stocks < 0 || impact.jobLoss ? 'danger' : 'info',
+    title: name ?? 'Event',
+    description: description ?? '',
+    variant: isNegative ? 'danger' : 'info',
     duration: 6000,
   })
 
@@ -82,16 +100,17 @@ export function applyEventImpact(event, { marketStore, playerStore, notification
     const updatedAssets = {}
 
     Object.entries(assets).forEach(([symbol, asset]) => {
-      if (asset.sector === 'stocks' || asset.category === 'stocks') {
+      const price = asset.currentPrice ?? asset.initialPrice ?? 0
+      if (price > 0) {
         updatedAssets[symbol] = {
           ...asset,
-          currentPrice: asset.currentPrice * (1 + impact.stocks),
+          currentPrice: price * (1 + impact.stocks),
         }
       }
     })
 
     if (Object.keys(updatedAssets).length > 0) {
-      marketStore.setState({ assets: { ...assets, ...updatedAssets } })
+      marketStore.getState().setAssets({ ...assets, ...updatedAssets })
     }
   }
 

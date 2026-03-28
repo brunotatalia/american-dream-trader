@@ -21,13 +21,6 @@ export default function TradingHub() {
   
   const [activeTab, setActiveTab] = useState('stocks')
   
-  // Log when component re-renders with new data
-  console.log('📈 TradingHub render:', { 
-    assetsCount: assetsList.length, 
-    lastUpdated: lastUpdated ? new Date(lastUpdated).toLocaleString() : 'never',
-    samplePrice: assetsList[0]?.currentPrice 
-  })
-
   const [tradeModal, setTradeModal] = useState({ isOpen: false, asset: null, action: null })
   const [quantity, setQuantity] = useState(1)
 

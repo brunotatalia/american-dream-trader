@@ -11,10 +11,12 @@ const percentageFormatter = new Intl.NumberFormat(undefined, {
 })
 
 export function formatCurrency(value) {
+  if (value == null || isNaN(value) || !isFinite(value)) return '$0.00'
   return currencyFormatter.format(value)
 }
 
 export function formatPercent(value) {
+  if (value == null || isNaN(value) || !isFinite(value)) return '0%'
   return percentageFormatter.format(value)
 }
 
